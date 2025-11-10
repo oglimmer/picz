@@ -1,0 +1,113 @@
+spring:
+  application:
+    name: picz
+  datasource:
+    url: jdbc:mariadb://${MARIADB_HOST:localhost}:3306/picz?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      maximumPoolSize: 20
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    # show-sql: true
+    # properties:
+    #   hibernate:
+    #     format_sql: true
+    properties:
+      hibernate:
+        query.plan_cache_max_size: 16
+        query.plan_parameter_metadata_max_size: 8
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+logging:
+  level:
+    root: INFO
+    de.oglimmer: DEBUG
+    # com.zaxxer.hikari: TRACE
+    # root: TRACE
+    # org.springframework.transaction: TRACE
+#    org.hibernate.SQL: DEBUG
+    # org.hibernate.orm.jdbc.bind: TRACE
+
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: test-client
+      usePkceWithAuthorizationCodeGrant: true
+
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-origins: '*'
+        allowed-methods: GET
+      exposure:
+        include: health,info,prometheus,metrics,heapdump
+  endpoint:
+    health:
+      show-components: when-authorized
+      show-details: when-authorized
+      roles: ACTUATOR
+    heapdump:
+      access: unrestricted
+  info:
+    git:
+      #      mode: full
+      enabled: true
+    java:
+      enabled: true
+    env:
+      enabled: true
+    build:
+      enabled: true
+    os:
+      enabled: true
+    process:
+      enabled: false
+  actuator:
+    user: ""
+    password: ""
+
+picz:
+  originalImagePath: /tmp/picz/original-images/
+  imagePath: /tmp/picz/images/
+  smallImagePath: /tmp/picz/small-images/
+  s3ImagePath: images/
+  s3SmallImagePath: small/
+#  s3Bucket: picz-images-bucket
+  s3Bucket: picz-images-bucket-dev
+  imageStorageImplementation: ImageStorageDisk
+#  imageStorageImplementation: ImageStorageS3
+  temporaryFileStorage:
+    host: localhost
+    port: 8081
+    bucket: bucket
+  async:
+    maxPoolSize: 10
+  scheduler:
+    parallel:
+      maxConcurrentJobs: 5
+
+apple:
+  maps:
+    teamId: ""
+    keyId: ""
+    privateKey: ""
+
+google:
+  maps:
+    apiKey: ""
+
+config:
+  issuers:
+    - https://id.oglimmer.de/realms/test
+    - https://appleid.apple.com

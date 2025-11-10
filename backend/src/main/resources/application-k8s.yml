@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://mariadb:3306/picz_prod
+    username: picz-app
+    hikari:
+      maximumPoolSize: 40
+
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: picz-client
+
+picz:
+  imageStorageImplementation: ImageStorageS3
+  s3Bucket: picz-images-bucket
+  originalImagePath: /opt/picz-data/original-images/
+  imagePath: /opt/picz-data/images/
+  smallImagePath: /opt/picz-data/small-images/
+  temporaryFileStorage:
+    host: s3fs-go
+    port: 8080
+    bucket: bucket
+  async:
+    maxPoolSize: 2
+  scheduler:
+    parallel:
+      maxConcurrentJobs: 2
+
+config:
+  issuers:
+    - https://id.oglimmer.de/realms/oglimmer
+    - https://appleid.apple.com

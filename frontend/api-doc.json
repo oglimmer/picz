@@ -1,0 +1,930 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PicZ API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://springdoc.org"
+    },
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "security": [
+    {
+      "OpenID": []
+    }
+  ],
+  "paths": {
+    "/api/v1/album/{id}/map": {
+      "put": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Allows to update a map entry",
+        "operationId": "updateMap",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAlbumMapRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlbumElementResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Creates a new map",
+        "operationId": "createMap",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumMapRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/accept-tos": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Accepts the TOS for the currently authenticated user",
+        "operationId": "acceptTos",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/image": {
+      "post": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Image upload endpoint, must be associated with an existing albumId",
+        "operationId": "create",
+        "parameters": [
+          {
+            "name": "albumId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "image"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadedImage"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/image/{id}/rotate": {
+      "post": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Rotates the image by 90 degrees",
+        "operationId": "rotate",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/album": {
+      "get": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Returns a albums for an user",
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ListAlbumResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Creates a new empty album",
+        "operationId": "create_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAlbumResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/album/{id}/section": {
+      "post": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Creates a new section, which can provide a title image",
+        "operationId": "createSection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumSectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/album/{id}/order": {
+      "post": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Changes the order of images inside an album",
+        "operationId": "reorder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderAlbumRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/image/{id}": {
+      "patch": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Changing the images attributes. Currently supported description",
+        "operationId": "patch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImagePatchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/album/{id}": {
+      "get": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Returns an album with all associated entries, like images, titles and maps",
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAlbumResponseImage"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Deletes an entire album",
+        "operationId": "deleteAlbum",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Changing the attributes of the album. Currently supported description",
+        "operationId": "patchAlbum",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchAlbumRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/error": {
+      "get": {
+        "tags": [
+          "error-controller"
+        ],
+        "summary": "Unknown",
+        "operationId": "error",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/user": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Returns the configuration for the currently authenticated user",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Deletes the currently authenticated user and all of the associated albums and images",
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/v1/migrate": {
+      "get": {
+        "tags": [
+          "migration-controller"
+        ],
+        "summary": "Migrates images from a local directory to AWS s3",
+        "operationId": "migrate",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    },
+    "/api/public/v1/image/{id}": {
+      "get": {
+        "tags": [
+          "public-image-controller"
+        ],
+        "summary": "Returns the image for a given secret id. A query-parameter defines small or original size",
+        "operationId": "get_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "small",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/album": {
+      "get": {
+        "tags": [
+          "public-album-controller"
+        ],
+        "summary": "Returns information about an album by its secret id. These information contain all images including their secret ids.",
+        "operationId": "list_1",
+        "parameters": [
+          {
+            "name": "secretId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAlbumResponseImage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/album/{id}/element/{elementId}": {
+      "delete": {
+        "tags": [
+          "album-controller"
+        ],
+        "summary": "Deletes an element inside an album",
+        "operationId": "deleteElement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "elementId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "OpenID": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdateAlbumMapRequest": {
+        "type": "object",
+        "properties": {
+          "imageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapCenterLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapCenterLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapSpanLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapSpanLatitude": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "AlbumElementResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "elementType": {
+            "type": "string",
+            "enum": [
+              "IMAGE",
+              "SECTION",
+              "MAP"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "secretId": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "orderNo": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "mapCenterLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapCenterLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapSpanLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "mapSpanLatitude": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "UploadedImage": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "originalFileExtension": {
+            "type": "string"
+          },
+          "convertedFileExtension": {
+            "type": "string"
+          },
+          "contentHash": {
+            "type": "string"
+          },
+          "albumId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CreateAlbumResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "secretId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateAlbumSectionRequest": {
+        "type": "object",
+        "properties": {
+          "imageId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "OrderAlbumRequest": {
+        "type": "object",
+        "properties": {
+          "newIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "oldIndex": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CreateAlbumMapRequest": {
+        "type": "object",
+        "properties": {
+          "imageId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ImagePatchRequest": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchAlbumRequest": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "GetUserResponse": {
+        "type": "object",
+        "properties": {
+          "acceptedTos": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          },
+          "usedCapacity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ListAlbumResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imageCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "secretId": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+        }
+      },
+      "GetAlbumResponseImage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "albumElements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlbumElementResponse"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "secretId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OpenID": {
+        "type": "openIdConnect",
+        "name": "OpenID",
+        "openIdConnectUrl": "https://id.oglimmer.de/realms/test/.well-known/openid-configuration"
+      }
+    }
+  }
+}
