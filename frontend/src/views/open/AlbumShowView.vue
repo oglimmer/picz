@@ -66,7 +66,7 @@ const backButton = () => {
     });
   }
 };
-const backButtonTouch = (e: any) => {
+const backButtonTouch = (e: Event) => {
   e.preventDefault();
   backButton();
 };
@@ -84,17 +84,17 @@ const nextButton = () => {
   }
 };
 
-const nextButtonTouch = (e: any) => {
+const nextButtonTouch = (e: Event) => {
   e.preventDefault();
   nextButton();
 };
 
-const help = (e: any) => {
+const help = (e: Event) => {
   e.preventDefault();
   showHelp.value = true;
 };
 
-const hideHelp = (e: any) => {
+const hideHelp = (e: Event) => {
   e.preventDefault();
   showHelp.value = false;
 };

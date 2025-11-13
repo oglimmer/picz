@@ -16,7 +16,7 @@ services:
 
 
   web:
-    build: 
+    build:
       context: frontend
       dockerfile: Dockerfile-prod
       args:

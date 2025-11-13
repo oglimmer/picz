@@ -36,7 +36,7 @@ logging:
     # root: TRACE
     # org.springframework.transaction: TRACE
 #    org.hibernate.SQL: DEBUG
-    # org.hibernate.orm.jdbc.bind: TRACE
+# org.hibernate.orm.jdbc.bind: TRACE
 
 springdoc:
   swagger-ui:
@@ -48,7 +48,7 @@ management:
   endpoints:
     web:
       cors:
-        allowed-origins: '*'
+        allowed-origins: "*"
         allowed-methods: GET
       exposure:
         include: health,info,prometheus,metrics,heapdump
@@ -83,10 +83,10 @@ picz:
   smallImagePath: /tmp/picz/small-images/
   s3ImagePath: images/
   s3SmallImagePath: small/
-#  s3Bucket: picz-images-bucket
+  #  s3Bucket: picz-images-bucket
   s3Bucket: picz-images-bucket-dev
   imageStorageImplementation: ImageStorageDisk
-#  imageStorageImplementation: ImageStorageS3
+  #  imageStorageImplementation: ImageStorageS3
   temporaryFileStorage:
     host: localhost
     port: 8081

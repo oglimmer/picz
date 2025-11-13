@@ -1,3 +1,4 @@
+/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.config;
 
 import io.swagger.v3.oas.models.Components;
@@ -16,32 +17,34 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class Beans {
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
-
-    @Bean
-    public OpenAPI customOpenAPI() {
-        final String securitySchemeName1 = "OpenID";
-        return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName1))
-                .components(
-                        new Components()
-                                .addSecuritySchemes(securitySchemeName1,
-                                        new SecurityScheme()
-                                                .name(securitySchemeName1)
-                                                .type(SecurityScheme.Type.OPENIDCONNECT)
-                                                .openIdConnectUrl("https://id.oglimmer.de/realms/test/.well-known/openid-configuration")
-                                )
-                )
-                .info(new Info().title("PicZ API").version("3")
-                        .license(new License().name("Apache 2.0").url("http://springdoc.org")));
-    }
+  @Bean
+  public OpenAPI customOpenAPI() {
+    final String securitySchemeName1 = "OpenID";
+    return new OpenAPI()
+        .addSecurityItem(new SecurityRequirement().addList(securitySchemeName1))
+        .components(
+            new Components()
+                .addSecuritySchemes(
+                    securitySchemeName1,
+                    new SecurityScheme()
+                        .name(securitySchemeName1)
+                        .type(SecurityScheme.Type.OPENIDCONNECT)
+                        .openIdConnectUrl(
+                            "https://id.oglimmer.de/realms/test/.well-known/openid-configuration")))
+        .info(
+            new Info()
+                .title("PicZ API")
+                .version("3")
+                .license(new License().name("Apache 2.0").url("http://springdoc.org")));
+  }
 }

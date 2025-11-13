@@ -1,3 +1,4 @@
+/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.config;
 
 import lombok.Getter;
@@ -11,6 +12,5 @@ import org.springframework.stereotype.Component;
 @Setter
 public class ParallelSchedulerProps {
 
-    private int maxConcurrentJobs = 5;
-
+  private int maxConcurrentJobs = 5;
 }

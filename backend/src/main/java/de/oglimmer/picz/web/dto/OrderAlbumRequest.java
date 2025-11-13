@@ -1,3 +1,4 @@
+/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.web.dto;
 
 import lombok.Data;
@@ -5,8 +6,7 @@ import lombok.Data;
 @Data
 public class OrderAlbumRequest {
 
-    private int newIndex;
+  private int newIndex;
 
-    private int oldIndex;
-
+  private int oldIndex;
 }

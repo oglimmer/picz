@@ -1,30 +1,30 @@
+/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.web.dto;
 
 import de.oglimmer.picz.db.AlbumElementType;
+import java.util.Date;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class     ImageMetaResponse {
+public class ImageMetaResponse {
 
-    private Long id;
+  private Long id;
 
-    private AlbumElementType elementType;
+  private AlbumElementType elementType;
 
-    private String description;
+  private String description;
 
-    private Long orderNo;
+  private Long orderNo;
 
-    private String secretId;
+  private String secretId;
 
-    private String filename;
+  private String filename;
 
-    private String contentHash;
+  private String contentHash;
 
-    private Date creationDate;
+  private Date creationDate;
 
-    private Double longitude;
+  private Double longitude;
 
-    private Double latitude;
+  private Double latitude;
 }

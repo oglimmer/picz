@@ -45,7 +45,7 @@ case "$BUILD_OPTION" in
         docker build --tag registry.oglimmer.com/picz-fe --push frontend -f frontend/Dockerfile-prod
         docker build --tag registry.oglimmer.com/picz-be --push . -f backend/Dockerfile
         echo "✅ All builds completed successfully!"
-        
+
         if [ "$RESTART_FLAG" == "true" ]; then
             echo "Restarting Kubernetes deployments..."
             kubectl rollout restart deployment/picz-web
@@ -57,7 +57,7 @@ case "$BUILD_OPTION" in
         echo "Building frontend only..."
         docker build --tag registry.oglimmer.com/picz-fe --push frontend -f frontend/Dockerfile-prod
         echo "✅ Frontend build completed successfully!"
-        
+
         if [ "$RESTART_FLAG" == "true" ]; then
             echo "Restarting frontend Kubernetes deployment..."
             kubectl rollout restart deployment/picz-web
@@ -68,7 +68,7 @@ case "$BUILD_OPTION" in
         echo "Building backend only..."
         docker build --tag registry.oglimmer.com/picz-be --push . -f backend/Dockerfile
         echo "✅ Backend build completed successfully!"
-        
+
         if [ "$RESTART_FLAG" == "true" ]; then
             echo "Restarting backend Kubernetes deployment..."
             kubectl rollout restart daemonset/picz-api

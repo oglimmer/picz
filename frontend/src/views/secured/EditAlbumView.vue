@@ -22,7 +22,7 @@ const imageProcessingStore = useImageProcessingStore();
 
 const { album, loading } = storeToRefs(userStore);
 
-const uploadErrors = ref([] as Array<any>);
+const uploadErrors = ref([] as Array<unknown>);
 const inputfiles = ref<HTMLFormElement>();
 const editingTitle = ref(false);
 const newAlbumTitle = ref("");
@@ -75,7 +75,7 @@ const onDrop = (e: DragEvent) => {
   }
 };
 
-const onUpdate = (event: any) => {
+const onUpdate = (event: { oldIndex: number; newIndex: number }) => {
   userStore.changeOrder(albumId, event.oldIndex, event.newIndex);
 };
 

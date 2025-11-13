@@ -1,5 +1,5 @@
 -- Add processor_name column to job_queue table
-ALTER TABLE job_queue 
+ALTER TABLE job_queue
 ADD COLUMN processor_name VARCHAR(64) NOT NULL DEFAULT 'MAIN_SCHEDULER';
 
 -- Update the index to include processor_name for better query performance

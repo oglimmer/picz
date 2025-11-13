@@ -1,3 +1,4 @@
+/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.web.dto;
 
 import lombok.Getter;
@@ -7,8 +8,7 @@ import lombok.Setter;
 @Setter
 public class CreateAlbumResponse {
 
-    private Long id;
-    private String description;
-    private String secretId;
-
+  private Long id;
+  private String description;
+  private String secretId;
 }

@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.5'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.diffplug.spotless' version '7.0.4'
 }
 
 group = 'de.oglimmer'
@@ -50,4 +51,35 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+spotless {
+	java {
+		googleJavaFormat()
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
+		licenseHeader '/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */'
+	}
+
+	format 'markdown', {
+		target '**/*.md'
+		prettier()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+
+	format 'yaml', {
+		target '**/*.yml', '**/*.yaml'
+		prettier().config(['parser': 'yaml'])
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+
+	format 'json', {
+		target 'src/**/*.json', '**/*.json'
+		prettier()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
 }

@@ -1,3 +1,4 @@
+/* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.config;
 
 import lombok.Data;
@@ -8,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "picz.temporary-file-storage")
 public class TemporaryFileStorageProps {
-    private String host = "localhost";
-    private int port = 8081;
-    private String bucket = "bucket";
-    
-    public String getBaseUrl() {
-        return "http://" + host + ":" + port;
-    }
+  private String host = "localhost";
+  private int port = 8081;
+  private String bucket = "bucket";
+
+  public String getBaseUrl() {
+    return "http://" + host + ":" + port;
+  }
 }
