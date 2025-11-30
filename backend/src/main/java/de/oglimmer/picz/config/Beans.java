@@ -1,6 +1,7 @@
 /* Copyright (c) 2025 by oglimmer.com / Oliver Zimpasser. All rights reserved. */
 package de.oglimmer.picz.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -16,6 +17,11 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @Configuration
 public class Beans {
+
+  @Bean
+  public ObjectMapper objectMapper() {
+    return new ObjectMapper();
+  }
 
   @Bean
   public ModelMapper modelMapper() {
