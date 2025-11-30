@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.9_10-jdk AS builder
+FROM eclipse-temurin:25.0.1_8-jdk AS builder
 
 #RUN apt install findutils # needed for gradle xargs
 
@@ -21,7 +21,7 @@ COPY .git/ .git/
 WORKDIR /app/backend
 RUN --mount=type=cache,target=/root/.m2 --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon build
 
-FROM eclipse-temurin:21.0.9_10-jre-noble
+FROM eclipse-temurin:25.0.1_8-jre-noble
 
 RUN apt-get update && apt-get install -y curl imagemagick && \
     rm -rf /var/lib/apt/lists/*
