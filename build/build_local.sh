@@ -49,7 +49,7 @@ case "$BUILD_OPTION" in
         if [ "$RESTART_FLAG" == "true" ]; then
             echo "Restarting Kubernetes deployments..."
             kubectl rollout restart deployment/picz-web
-            kubectl rollout restart daemonset/picz-api
+            kubectl rollout restart deployment/picz-api
             echo "✅ Deployments restarted successfully!"
         fi
         ;;
@@ -71,7 +71,7 @@ case "$BUILD_OPTION" in
 
         if [ "$RESTART_FLAG" == "true" ]; then
             echo "Restarting backend Kubernetes deployment..."
-            kubectl rollout restart daemonset/picz-api
+            kubectl rollout restart deployment/picz-api
             echo "✅ Backend deployment restarted successfully!"
         fi
         ;;

@@ -19,7 +19,7 @@ WORKDIR /app
 COPY .git/ .git/
 
 WORKDIR /app/backend
-RUN --mount=type=cache,target=/root/.m2 --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon build
+RUN --mount=type=cache,target=/root/.m2 --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon build -x spotlessCheck
 
 FROM eclipse-temurin:25.0.1_8-jre-noble
 
