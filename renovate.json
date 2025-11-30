@@ -10,10 +10,12 @@
   "prHourlyLimit": 30,
   "prConcurrentLimit": 30,
   "rangeStrategy": "auto",
+  "rebaseWhen": "behind-base-branch",
 
   "schedule": ["before 5am on monday"],
 
   "automerge": false,
+  "automergeType": "branch",
   "major": { "automerge": false },
   "minor": { "automerge": true },
   "patch": { "automerge": true },
@@ -30,14 +32,14 @@
       "matchFileNames": ["backend/**"],
       "groupName": "maven dependencies",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "branch"
     },
     {
       "matchManagers": ["npm"],
       "matchFileNames": ["frontend/**"],
       "groupName": "npm dependencies",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "branch"
     },
     {
       "matchManagers": ["npm"],
@@ -45,14 +47,14 @@
       "matchFileNames": ["frontend/**"],
       "groupName": "frontend dev dependencies",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "branch"
     },
 
     /* General rule: automerge minor/patch for everything (subject to platform checks) */
     {
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "branch"
     },
 
     /* Override for pre-1.0 packages: DO NOT automerge */
