@@ -2,19 +2,16 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":enableVulnerabilityAlerts",
-    ":dependencyDashboard"
+    ":enableVulnerabilityAlerts"
   ],
 
   "timezone": "Europe/Berlin",
   "prHourlyLimit": 30,
   "prConcurrentLimit": 30,
-  "rangeStrategy": "auto",
   "rebaseWhen": "behind-base-branch",
 
   "schedule": ["before 5am on monday"],
 
-  "automerge": false,
   "automergeType": "branch",
   "major": { "automerge": false },
   "minor": { "automerge": true },
@@ -30,51 +27,22 @@
     {
       "matchDatasources": ["maven"],
       "matchFileNames": ["backend/**"],
-      "groupName": "maven dependencies",
-      "automerge": true,
-      "automergeType": "branch"
+      "groupName": "maven dependencies"
     },
     {
       "matchManagers": ["npm"],
       "matchFileNames": ["frontend/**"],
-      "groupName": "npm dependencies",
-      "automerge": true,
-      "automergeType": "branch"
+      "groupName": "npm dependencies"
     },
     {
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
       "matchFileNames": ["frontend/**"],
-      "groupName": "frontend dev dependencies",
-      "automerge": true,
-      "automergeType": "branch"
+      "groupName": "frontend dev dependencies"
     },
-
-    /* General rule: automerge minor/patch for everything (subject to platform checks) */
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "branch"
-    },
-
-    /* Override for pre-1.0 packages: DO NOT automerge */
     {
       "matchCurrentVersion": "/^0\\./",
       "automerge": false
     }
-  ],
-
-  "maven": {
-    "managerFilePatterns": [
-      "^pom\\.xml$",
-      "^backend/.*/pom\\.xml$"
-    ]
-  },
-
-  "npm": {
-    "managerFilePatterns": [
-      "^package\\.json$",
-      "^frontend/.*/package\\.json$"
-    ]
-  }
+  ]
 }
