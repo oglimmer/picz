@@ -26,18 +26,15 @@
   "packageRules": [
     {
       "matchDatasources": ["maven"],
-      "matchFileNames": ["backend/**"],
       "groupName": "maven dependencies"
     },
     {
       "matchManagers": ["npm"],
-      "matchFileNames": ["frontend/**"],
       "groupName": "npm dependencies"
     },
     {
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
-      "matchFileNames": ["frontend/**"],
       "groupName": "frontend dev dependencies"
     },
     {
