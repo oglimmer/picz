@@ -2,20 +2,23 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":enableVulnerabilityAlerts"
+    ":enableVulnerabilityAlerts",
+    ":dependencyDashboard",
+    ":semanticCommits"
   ],
 
   "timezone": "Europe/Berlin",
-  "prHourlyLimit": 30,
-  "prConcurrentLimit": 30,
+  "prHourlyLimit": 10,
+  "prConcurrentLimit": 5,
   "rebaseWhen": "behind-base-branch",
+  "separateMinorPatch": true,
+  "rangeStrategy": "bump",
 
   "schedule": ["before 5am on monday"],
 
   "automergeType": "branch",
-  "major": { "automerge": false },
-  "minor": { "automerge": true },
-  "patch": { "automerge": true },
+
+  "labels": ["dependencies"],
 
   "lockFileMaintenance": {
     "enabled": true,
@@ -23,23 +26,75 @@
     "schedule": ["before 5am on monday"]
   },
 
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "automerge": true,
+    "schedule": ["at any time"]
+  },
+
   "packageRules": [
     {
-      "matchDatasources": ["maven"],
-      "groupName": "maven dependencies"
+      "description": "Automatically merge minor and patch-level updates for production dependencies",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": ["dependencies"],
+      "automerge": true
     },
     {
-      "matchManagers": ["npm"],
-      "groupName": "npm dependencies"
-    },
-    {
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "groupName": "frontend dev dependencies"
-    },
-    {
-      "matchCurrentVersion": "/^0\\./",
+      "description": "Disable automerge for major updates",
+      "matchUpdateTypes": ["major"],
       "automerge": false
+    },
+    {
+      "description": "Group all non-major Maven dependencies from backend",
+      "matchDatasources": ["maven"],
+      "matchFileNames": ["backend/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "backend maven non-major dependencies"
+    },
+    {
+      "description": "Group all non-major npm production dependencies from frontend",
+      "matchManagers": ["npm"],
+      "matchFileNames": ["frontend/**"],
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "frontend npm production dependencies"
+    },
+    {
+      "description": "Group all npm dev dependencies from frontend",
+      "matchManagers": ["npm"],
+      "matchFileNames": ["frontend/**"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "frontend npm dev dependencies"
+    },
+    {
+      "description": "Disable automerge and group pre-1.0 packages",
+      "matchCurrentVersion": "/^0\\./",
+      "automerge": false,
+      "groupName": "unstable (0.x) dependencies"
+    },
+    {
+      "description": "Pin GitHub Actions to commit SHA for security",
+      "matchManagers": ["github-actions"],
+      "pinDigests": true
+    },
+    {
+      "description": "Security updates should merge immediately",
+      "matchUpdateTypes": ["patch"],
+      "matchCurrentVersion": "/.*/",
+      "matchPackagePatterns": ["*"],
+      "vulnerabilityAlerts": {
+        "enabled": true
+      },
+      "automerge": true,
+      "schedule": ["at any time"]
+    },
+    {
+      "description": "Spring Boot and related dependencies",
+      "matchPackagePatterns": ["^org\\.springframework"],
+      "matchDatasources": ["maven"],
+      "groupName": "Spring Framework"
     }
   ]
 }
