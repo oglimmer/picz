@@ -14,16 +14,14 @@
   "separateMinorPatch": true,
   "rangeStrategy": "bump",
 
-  "schedule": ["before 5am on monday"],
-
   "automergeType": "branch",
+  "ignoreTests": true,
 
   "labels": ["dependencies"],
 
   "lockFileMaintenance": {
     "enabled": true,
-    "automerge": true,
-    "schedule": ["before 5am on monday"]
+    "automerge": true
   },
 
   "vulnerabilityAlerts": {
