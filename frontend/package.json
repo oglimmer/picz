@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.15.0",
-    "@tsconfig/node24": "^24.0.3",
+    "@tsconfig/node24": "^24.0.4",
     "@types/google.maps": "^3.58.1",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.9",
