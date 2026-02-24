@@ -45,7 +45,7 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-	implementation platform('software.amazon.awssdk:bom:2.41.34')
+	implementation platform('software.amazon.awssdk:bom:2.42.0')
 	implementation 'software.amazon.awssdk:s3'
 }
 
